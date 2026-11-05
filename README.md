@@ -4,14 +4,13 @@ RTOS pico morse code project
 
 ## EVERYTHING MUST BE DONE 3 DAYS BEFORE NOVEMBER 22nd
 To/do:
-- Determine specific functions needed
 - Email about project plan
 - Write this week's diary (and check if there was meant to be one last week)
 - Install VM and get pico running (Taneli) (this weekend)
 - Clean up main
 - Get Sam up to speed (EVERYONE MUST KNOW WHY WE MAKE THE DECISIONS WE MAKE AND WHAT THE IMPLEMENTATION IS AND HOW IT WORKS)
 - Split up work
-- Determine code structure (What libraries, what are helper functions, what goes to main, what are the states, what are the tasks, what are gonna be global variables)
+- determine helper function, global variables, and expand on implementation needed for tasks
 
 ## Project Implementation
 ### Input (Pico)
@@ -39,6 +38,47 @@ To/do:
 ### Other project tasks
 ## Guidelines
 ## Code Structure
+### Main
+- Init everything
+- create tasks
+- start scheduler
+- handle task exceptions
+- define interrupts
+### Receiving from Workstation to Pico
+#### Input Stage (Workstation)
+- Pico does nothing
+- Serial asks for input from user
+- Once input entered:
+  - Check validity (Exceptions give an error and ask for new input)
+  - Translate
+  - Switch to read (buzz to indicate change)
+#### Reading Stage (Pico)
+- Start displaying when button 2 is pressed (first character is space)
+- Display morse code one symbol at a time
+  - On the LED
+- Button 2 will scroll to the next symbol
+- Space denominates new char
+- Once it reaches the end, it buzzes (pressing button 2 will restart message)
+- Switch program state with Button 1
+### Sending from Pico to Workstation
+- Print to the Serial Monitor that the Pico is now ready to send
+- Pico
+  - Button 2 pressed
+    - Check orientation and return corresponding symbol
+    - Collect symbol in buffer
+    - When receive 'space' translate char and print to serial
+      - Translate function returns error if not real char
+      - Empty symbol array = space
+    - When Button 1 is pressed
+      - Send final message
+      - Switch state
+  #### Send Message Format (Only if newline print):
+  "Receiving from Pico"
+  - "A"
+  - "B"
+  - " "
+  - "C"
+  - "Message "AB C""
 ## File structure
 ## Course deliverables
 - Personal weekly diary
