@@ -7,6 +7,8 @@ To/do:
 - Email about project plan
 - Write this week's diary (and check if there was meant to be one last week)
 - Install VM and get pico running (Taneli) (this weekend)
+- Write down all the guidelines
+- Modify implementation according to guidelines for points (if needed)
 - Clean up main
 - Get Sam up to speed (EVERYONE MUST KNOW WHY WE MAKE THE DECISIONS WE MAKE AND WHAT THE IMPLEMENTATION IS AND HOW IT WORKS)
 - Split up work
