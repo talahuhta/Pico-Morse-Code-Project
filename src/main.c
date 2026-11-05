@@ -10,34 +10,19 @@
 
 #include "tkjhat/sdk.h"
 
-// Exercise 4. Include the libraries necessaries to use the usb-serial-debug, and tinyusb
-// Tehtävä 4 . Lisää usb-serial-debugin ja tinyusbin käyttämiseen tarvittavat kirjastot.
-
-
-
 #define DEFAULT_STACK_SIZE 2048
 #define CDC_ITF_TX      1
 
-
-// Tehtävä 3: Tilakoneen esittely Add missing states.
-// Exercise 3: Definition of the state machine. Add missing states.
+// Definition of the state machine. Add missing states.
 enum state {DATA_READY, WAITING=1};
 enum state programState = WAITING;
 
-// Tehtävä 3: Valoisuuden globaali muuttuja
-// Exercise 3: Global variable for ambient light
+// Global variable for ambient light
 uint32_t ambientLight;
 
-
-
 static void btn_fxn(uint gpio, uint32_t eventMask) {
-    // Tehtävä 1: Vaihda LEDin tila.
-    //            Tarkista SDK, ja jos et löydä vastaavaa funktiota, sinun täytyy toteuttaa se itse.
-    // Exercise 1: Toggle the LED. 
-
-    
+    // Exercise 1: Toggle the LED.    
     toggle_led();
-    //             Check the SDK and if you do not find a function you would need to implement it yourself. 
 }
 
 static void sensor_task(void *arg){
