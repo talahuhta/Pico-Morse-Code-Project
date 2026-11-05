@@ -2,6 +2,17 @@
 
 RTOS pico morse code project
 
+## EVERYTHING MUST BE DONE 3 DAYS BEFORE NOVEMBER 22nd
+To/do:
+- Determine specific functions needed
+- Email about project plan
+- Write this week's diary (and check if there was meant to be one last week)
+- Install VM and get pico running (Taneli) (this weekend)
+- Clean up main
+- Get Sam up to speed (EVERYONE MUST KNOW WHY WE MAKE THE DECISIONS WE MAKE AND WHAT THE IMPLEMENTATION IS AND HOW IT WORKS)
+- Split up work
+- Determine code structure (What libraries, what are helper functions, what goes to main, what are the states, what are the tasks, what are gonna be global variables)
+
 ## Project Implementation
 ### Input (Pico)
 - Assign rotations to inputs
@@ -24,3 +35,13 @@ RTOS pico morse code project
 ### Output (Workstation)
 - Received code translated to letters
 - Displayed on serial monitor in user friendly way
+
+### Other project tasks
+## Guidelines
+## Code Structure
+## File structure
+## Course deliverables
+- Personal weekly diary
+- Video
+- In person meeting/presentation
+- Returning device
