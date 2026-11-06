@@ -5,22 +5,29 @@ RTOS pico morse code project
 ## EVERYTHING MUST BE DONE 3 DAYS BEFORE NOVEMBER 22nd
 To/do:
 - Email about project plan
+- begin writing code
 - Write this week's diary (and check if there was meant to be one last week)
 - Install VM and get pico running (Taneli) (this weekend)
-- Write down all the guidelines
-- Modify implementation according to guidelines for points (if needed)
-- Clean up main
-- Get Sam up to speed (EVERYONE MUST KNOW WHY WE MAKE THE DECISIONS WE MAKE AND WHAT THE IMPLEMENTATION IS AND HOW IT WORKS)
-- Split up work
-- determine helper function, global variables, and expand on implementation needed for tasks
 
-## Project Implementation
+Coding Tasks:
+- Clean up main.c
+- Write very basic program in the sending task to print imu data to serial when button 2 is pressed (start function to retrieve imu data)
+  - button 2 is pressed -> return IMU data
+- Next step: upgrade the sending task to print the symbol the IMU handler returns
+   - button 2 is pressed down (rising edge 0 -> 1) -> begins measuring IMU data
+   - movement detected -> function return symbol and breaks loop
+   - button 2 being let get go (falling edge 1 -> 0) -> breaks loop (doesn't return anything)
+   - sending task code will print the returned value to serial
+
+## General Project Plan
 ### Input (Pico)
-- Assign certain rotations to symbols
-- send inputs by holding button 2 and moving in a certain direction (accelerometer)
+- Assign certain movements to symbols
+- holding down button 2 and moving in a certain direction (accelerometer)
+  - upon detecting a symbol motion it will print that to serial and break the loop
+  - can be exited by releasing button 2 as well
 - button 1 to switch modes (only if message has been ended with a double space)
   - we must somehow communicate that to the user
-  - play a little tune to indicate that message was sent succesfully
+  - play a little tune to indicate that message was sent successfully
 - in read mode use button 2 for scrolling (beep tune when done)
 - clear cache upon switching states (for memory reasons)
 ### Input (Workstation)
@@ -73,8 +80,11 @@ To/do:
 ### Sending from Pico to Workstation
 - Print to the Serial Monitor that the Pico is now ready to send
 - Pico
-  - Button 2 pressed down
-    - Check orientation and return corresponding symbol when moved in the right direction
+  - Button 2 pressed (rising edge)
+    - Call function to process IMU data
+      - Begins a loop that monitors IMU data until it detects an acceleration in a certain direction
+      - Return a symbol (ends loop)
+      - Loop is also ended if button 2 is released (falling edge)
     - single space between chars
     - double space between words
     - send every symbol directly to serial
