@@ -7,6 +7,8 @@ To/do:
 - Email about project plan
 - Write this week's diary (and check if there was meant to be one last week)
 - Install VM and get pico running (Taneli) (this weekend)
+- Write down all the guidelines
+- Modify implementation according to guidelines for points (if needed)
 - Clean up main
 - Get Sam up to speed (EVERYONE MUST KNOW WHY WE MAKE THE DECISIONS WE MAKE AND WHAT THE IMPLEMENTATION IS AND HOW IT WORKS)
 - Split up work
@@ -14,15 +16,18 @@ To/do:
 
 ## Project Implementation
 ### Input (Pico)
-- Assign rotations to inputs
-- send inputs with button 2
-- button 1 to switch modes
-- in read mode use button 2 for scrolling (optional beep when done)
+- Assign certain rotations to symbols
+- send inputs by holding button 2 and moving in a certain direction (accelerometer)
+- button 1 to switch modes (only if message has been ended with a double space)
+  - we must somehow communicate that to the user
+  - play a little tune to indicate that message was sent succesfully
+- in read mode use button 2 for scrolling (beep tune when done)
 - clear cache upon switching states (for memory reasons)
 ### Input (Workstation)
 - Input letters
 - Function to translate into morse code
 - Type into serial monitor and 'enter' to send
+- message to indicate if it was successful and some kind of indication on the pico as well
 - limit input max length
 - handle all exceptions before sending to pico and display an error to the user
 ### Output (Pico)
@@ -31,8 +36,11 @@ To/do:
 - LCD (.,-,||  =  dot,dash,space)
 - scroll through with button 2
 - end word with beep noise
+- loop back if you continue scrolling
 ### Output (Workstation)
-- Received code translated to letters
+- Received code printed to serial
+- invalid characters give some kind of error in serial
+- final message is translated to letters
 - Displayed on serial monitor in user friendly way
 
 ### Other project tasks
@@ -51,26 +59,36 @@ To/do:
 - Once input entered:
   - Check validity (Exceptions give an error and ask for new input)
   - Translate
-  - Switch to read (buzz to indicate change)
+  - Switch to read (buzz tune to indicate successful sending and change stage)
 #### Reading Stage (Pico)
 - Start displaying when button 2 is pressed (first character is space)
 - Display morse code one symbol at a time
-  - On the LED
+  - On the LED and LCD
 - Button 2 will scroll to the next symbol
 - Space denominates new char
-- Once it reaches the end, it buzzes (pressing button 2 will restart message)
+- double space denominates a new word
+- Once it reaches the end, it buzzes a tune (pressing button 2 will restart message)
 - Switch program state with Button 1
+- Send some kind of indication to serial that it was read
 ### Sending from Pico to Workstation
 - Print to the Serial Monitor that the Pico is now ready to send
 - Pico
-  - Button 2 pressed
-    - Check orientation and return corresponding symbol
-    - Collect symbol in buffer
-    - When receive 'space' translate char and print to serial
+  - Button 2 pressed down
+    - Check orientation and return corresponding symbol when moved in the right direction
+    - single space between chars
+    - double space between words
+    - send every symbol directly to serial
+    - Collect chars in buffer
+      - when receive 'space' translate previous symbol inputs into a char
+      - error chars are not added to the 
+      - translate each char and store in an array
       - Translate function returns error if not real char
       - Empty symbol array = space
     - When Button 1 is pressed
-      - Send final message
+      - message must end with two spaces and a new line
+        - error led if it didn't
+      - print final translated message and move to a new line
+      - play a tune that it was successful
       - Switch state
   #### Send Message Format (Only if newline print):
   "Receiving from Pico"
@@ -80,6 +98,24 @@ To/do:
   - "C"
   - "Message "AB C""
 ## File structure
+|-- src/
+
+     |-- main.
+     
+     |-- other_file.c
+     
+|-- include/
+
+     |-- other_file.h
+     
+|-- assets/
+
+      |-- file1.csv
+      
+      |-- file2.png
+      
+|--CMakeList.txt
+
 ## Course deliverables
 - Personal weekly diary
 - Video
